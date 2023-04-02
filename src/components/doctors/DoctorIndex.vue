@@ -1,7 +1,9 @@
 <template>
     <div class="container">
         <h1 class="text-center mb-3">Our specialists</h1>
-
+        <div v v-if="error" class="alert alert-danger mt-3" role="alert">
+                            {{ this.error }}
+            </div>
         <div class="form-floating">
             <select class="form-select" @change="filterDoctors" id="section" name="section" aria-label="Section">
                 <option selected value="0">All sections</option>
@@ -25,6 +27,7 @@ export default {
     },
     data() {
         return {
+            error: '',
             doctors: [],
             sections: [],
         };
@@ -40,12 +43,12 @@ export default {
                     this.doctors = response.data;
                 })
                 .catch(error => {
-                    console.log(error);
+                    this.error=error.response.data.errorMessage;
                 });
         },
 
         getSections() {
-            axios.get('/sections')
+            axios.get('/sections?sort=name')
                 .then(response => {
                     this.sections = response.data;
                 })

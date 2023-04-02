@@ -2,10 +2,13 @@
   <div class="container">
 
     <div class="card text-bg-dark text-center">
-    <img src="home_banner.jpg" class="card-img" alt="..." style="max-height: 25rem; opacity: 55%">
+    <img src="/home_banner.jpg" class="card-img" alt="..." style="max-height: 25rem; opacity: 55%">
     <div class="card-img-overlay">
-        <h1 class="card-title mt-5 text-center">
-            Hello, welcome to Miracle Clinic!
+        <h1 v-if="this.store.isAuthenticated" class="card-title mt-5 text-center">
+            Hello, {{ this.store.getFirstName }} welcome to Miracle Clinic!
+        </h1>
+        <h1 v-else class="card-title mt-5 text-center">
+            Welcome to Miracle Clinic!
         </h1>
     </div>
 </div>
@@ -18,7 +21,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <img src="medicine.jpg" class="img-thumbnail rounded-start" alt="medical">
+                    <img src="/medicine.jpg" class="img-thumbnail rounded-start" alt="medical">
                 </div>
                 <div class="col-lg-8">
                     <div class="card-body">
@@ -43,8 +46,14 @@
   </div>
 </template>
 
-<script>
+<script >
+import { useUserSessionStore } from '../stores/usersession';
 export default {
+    setup() {
+    return {
+      store: useUserSessionStore()
+    }
+  },
   name: "Home",
 };
 </script>

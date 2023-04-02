@@ -3,7 +3,7 @@
         <div class="card mb-3">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img class="img-thumbnail" :src="doctorImageURL"/>
+                    <img class="img-thumbnail" :src="getDoctorImageURL(doctor.id)" />
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -28,17 +28,33 @@ export default {
     name: "DoctorItem",
     data() {
         return {
-            doctorImageURL: "doctor" + this.doctor.id + ".jpg",
-        
+            doctorImageURL: "default.jpg",
+
         };
     },
     props: {
         doctor: Object,
     },
     methods: {
-        getDoctorImageURL() {
-            return this.doctor_id;
+        getDoctorImageURL(id) {
+            var imageUrl = "doctor" + id + ".jpg";
+            this.imageExists(imageUrl).then(exists => {
+                if (exists) {
+                    this.doctorImageURL = imageUrl;
+                }
+            });
+
+            return this.doctorImageURL;
         },
+
+        imageExists(imageUrl) {
+            return new Promise(resolve => {
+                const img = new Image();
+                img.onload = () => resolve(true);
+                img.onerror = () => resolve(false);
+                img.src = imageUrl;
+            });
+        }
     },
 }
 </script>
