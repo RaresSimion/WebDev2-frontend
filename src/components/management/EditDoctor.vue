@@ -68,7 +68,7 @@
 
                             <label class="m-2 text-danger"></label>
                         </form>
-                        <div v v-if="error" class="alert alert-danger mt-3" role="alert">
+                        <div v-if="error" class="alert alert-danger mt-3" role="alert">
                             {{ this.error }}
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                         this.$router.push('/management/doctors');
                     })
                     .catch((error) => {
-                        this.error = error.response.data.message;
+                        this.error=error.response.data.errorMessage;
                     });
             },
 
@@ -130,7 +130,7 @@
                         this.doctor = response.data;
                     })
                     .catch((error) => {
-                        console.log(error);
+                        this.error=error.response.data.errorMessage;
                     });
             },
 

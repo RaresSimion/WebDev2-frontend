@@ -1,6 +1,9 @@
 <template>
     <div class="container">
-        <div class="row">
+        <div v-if="error" class="alert alert-danger mt-3" role="alert">
+            {{ this.error }}
+        </div>
+        <div v-else class="row">
             <div class="col-md-6 col-sm-12 mx-auto">
                 <div class="card mb-3">
                     <div class="card-body">
@@ -50,7 +53,7 @@
                         </div>
 
 
-                        <a href="/home/editProfile" class="btn btn-primary">Edit your information</a>
+                        <a href="/profile/edit" class="btn btn-primary">Edit your information</a>
                     </div>
                 </div>
             </div>
@@ -68,10 +71,11 @@ export default {
         }
     },
     name: "ProfileDetails",
-    data(){
-        return{
+    data() {
+        return {
+            error: "",
             user_id: this.store.getUserId,
-            user:{
+            user: {
                 first_name: "",
                 last_name: "",
                 address: "",
@@ -82,14 +86,14 @@ export default {
             }
         }
     },
-    mounted(){
+    mounted() {
         axios.get('/users/' + this.user_id)
-        .then(response => {
-            this.user = response.data;
-        })
-        .catch(error => {
-            console.log(error);
-        })
+            .then(response => {
+                this.user = response.data;
+            })
+            .catch(error => {
+                this.error = error.response.data.errorMessage;
+            })
     }
 }
 </script>

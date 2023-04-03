@@ -113,7 +113,7 @@ export default {
                     this.$router.push('/management/doctors');
                 })
                 .catch(error => {
-                    console.log(error);
+                    this.error=error.response.data.errorMessage;
                 });
         },
 

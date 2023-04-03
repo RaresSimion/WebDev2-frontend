@@ -26,7 +26,8 @@
                         this.$emit("update");
                     })
                     .catch(error => {
-                        console.log(error);
+                        let errorMessage = error.response.data.errorMessage;
+                        this.$emit("error", errorMessage);
                     });
             },
 

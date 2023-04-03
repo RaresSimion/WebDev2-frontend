@@ -6,7 +6,7 @@ export const useUserSessionStore = defineStore("usersession", {
         token: "",
         first_name: "",
         user_id: "",
-        user_type_id: "",
+        role: "",
     }),
 
     getters: {
@@ -15,7 +15,7 @@ export const useUserSessionStore = defineStore("usersession", {
         },
 
         isAdmin: (state) => {
-            return state.user_type_id == 1;
+            return state.role == "Admin";
         },
 
         getFirstName: (state) => {
@@ -35,7 +35,7 @@ export const useUserSessionStore = defineStore("usersession", {
             this.token = localStorage["token"];
             this.first_name = localStorage["first_name"];
             this.user_id = localStorage["user_id"];
-            this.user_type_id = localStorage["user_type_id"];
+            this.role = localStorage["role"];
             axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.token;
             console.log("Logged in automatically");
             console.log(localStorage["token"]);
@@ -43,40 +43,51 @@ export const useUserSessionStore = defineStore("usersession", {
 
         login(email, password) {
             return new Promise((resolve, reject) => {
-            axios.post('/users/login', {
-                email: email,
-                password: password
-                }).then(response => 
-                    {
-                        this.token = response.data.jwt;
-                        this.first_name = response.data.first_name;
-                        this.user_id = response.data.user_id;
-                        this.user_type_id = response.data.user_type_id;
+                axios.post('/users/login', {
+                    email: email,
+                    password: password
+                }).then(response => {
+                    this.token = response.data.jwt;
+                    this.first_name = response.data.first_name;
+                    this.user_id = response.data.user_id;
+                    this.role = response.data.role;
 
-                        localStorage["token"] = this.token;
-                        localStorage["first_name"] = this.first_name;
-                        localStorage["user_id"] = this.user_id;
-                        localStorage["user_type_id"] = this.user_type_id;
+                    localStorage["token"] = this.token;
+                    localStorage["first_name"] = this.first_name;
+                    localStorage["user_id"] = this.user_id;
+                    localStorage["role"] = this.role;
 
-                        axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.token;
-                        console.log(this.token)
-                        resolve();
+                    axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.token;
+                    console.log(this.token)
+                    resolve();
                 }).catch(error => {
-                console.log(error);
-                reject(error.response.data.errorMessage);
+                    console.log(error);
+                    reject(error.response.data.errorMessage);
+                });
             });
-        });
-    },
-    logout(){
-        this.token = "";
-        this.first_name = "";
-        this.user_id = "";
-        this.user_type_id = "";
-        localStorage.removeItem("token");
-        localStorage.removeItem("first_name");
-        localStorage.removeItem("user_id");
-        localStorage.removeItem("user_type_id");
-        axios.defaults.headers.common['Authorization'] = 'Bearer ';
-    },
+        },
+        logout() {
+            this.token = "";
+            this.first_name = "";
+            this.user_id = "";
+            this.role = "";
+            localStorage.removeItem("token");
+            localStorage.removeItem("first_name");
+            localStorage.removeItem("user_id");
+            localStorage.removeItem("role");
+            axios.defaults.headers.common['Authorization'] = 'Bearer ';
+        },
+
+        register(user) {
+            return new Promise((resolve, reject) => {
+                axios.post('/users/register', user).then(response => {
+                    this.login(user.email, user.password);
+                    resolve();
+                }).catch(error => {
+                    console.log(error);
+                    reject(error.response.data.errorMessage);
+                });
+            });
+        }
     }
 });

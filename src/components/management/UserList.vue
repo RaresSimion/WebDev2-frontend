@@ -1,7 +1,12 @@
 <template>
-    <div class="container">
-        <h1 class="text-center mb-3">Users</h1>
+    <div v-if="error" class="container">
+        <div class="alert alert-danger mt-3" role="alert">
+            <h5>{{ this.error }}</h5>
+        </div>
+    </div>
 
+    <div v-else class="container">
+        <h1 class="text-center mb-3">Users</h1>
         <div class="table table-responsive">
             <table class="table text-center">
                 <thead>
@@ -38,6 +43,7 @@ export default {
     },
     data() {
         return {
+            error: '',
             users: [],
         };
     },
@@ -51,7 +57,7 @@ export default {
                     this.users = response.data;
                 })
                 .catch(error => {
-                    console.log(error);
+                    this.error = error.response.data.errorMessage;
                 });
         },
     },

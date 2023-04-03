@@ -1,22 +1,27 @@
 <template>
-    <div class="container">
+    <div v-if="!store.isAdmin" class="container">
+        <div class="alert alert-danger mt-3" role="alert">
+            Unauthorized access, please login as an admin.
+        </div>
+    </div>
+    <div v-else class="container">
         <h1 class="text-center mb-3">Clinic sections</h1>
 
         <div class="card bg-light text-center mb-4">
             <h3 class="mt-3">Add section</h3>
             <div class="card-body">
-                <form  @submit.prevent="checkForm" id="sectionForm">
+                <form @submit.prevent="checkForm" id="sectionForm">
                     <div class="row mb-3">
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <input v-model="section.name" type="text" class="form-control" id="section" name="section" placeholder="Section"
-                                    >
+                                <input v-model="section.name" type="text" class="form-control" id="section" name="section"
+                                    placeholder="Section">
                                 <label for="section" class="form-label">Section name</label>
                             </div>
                         </div>
                     </div>
-                    <div v v-if="error" class="alert alert-danger mt-3" role="alert">
-                            {{ this.error }}
+                    <div v-if="error" class="alert alert-danger mt-3" role="alert">
+                        {{ this.error }}
                     </div>
                     <button type="submit" class="btn btn-primary" name="addSection">Add section</button>
                 </form>
@@ -46,15 +51,21 @@
                         </td>
                     </tr>
                 </tbody>
-            </table>    
+            </table>
         </div>
     </div>
 </template>
 
 <script>
 import axios from '../../axios-auth.js';
+import { useUserSessionStore } from '../../stores/usersession';
 
 export default {
+    setup() {
+    return {
+      store: useUserSessionStore()
+    };
+  },
     name: "SectionList",
     data() {
         return {
@@ -75,7 +86,7 @@ export default {
                     this.sections = response.data;
                 })
                 .catch(error => {
-                    console.log(error);
+                    this.error = error.response.data.errorMessage;
                 });
         },
         deleteSection(id) {
@@ -85,7 +96,7 @@ export default {
                     this.getSections();
                 })
                 .catch(error => {
-                    console.log(error);
+                    this.error = error.response.data.errorMessage;
                 });
         },
 
@@ -100,7 +111,7 @@ export default {
                     this.getSections();
                 })
                 .catch(error => {
-                    console.log(error);
+                    this.error = error.response.data.errorMessage;
                 });
         },
 

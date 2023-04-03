@@ -15,7 +15,7 @@
                     <a class="nav-link" style="color: white" href="/doctors">Our Specialists</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/appointment" style="color: white">Book an appointment!</a>
+                    <a class="nav-link" href="/appointment/create" style="color: white">Book an appointment!</a>
                 </li>
                 <li class="nav-item" v-if="!this.store.isAuthenticated">
                     <a class="nav-link" style="color: white" href="/login">Login</a>
@@ -42,7 +42,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/profile">My Details</a></li>
-                        <li><a class="dropdown-item" href="/home/appointments">My Appointments</a></li>
+                        <li><a class="dropdown-item" href="/profile/appointments">My Appointments</a></li>
                     </ul>
                 </li>
 
@@ -57,7 +57,6 @@
 
 <script>
 import { useUserSessionStore } from '../stores/usersession';
-//import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 export default {
@@ -67,9 +66,7 @@ export default {
     }
   },
   name: "Navigation",
-  mounted() {
-    this.store.localLogin();
-  }
+
 };
 </script>
 

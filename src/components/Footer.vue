@@ -6,7 +6,7 @@
         <ul class="nav col-md-4 justify-content-end">
             <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
             <li class="nav-item"><a href="/doctors" class="nav-link px-2 text-muted">Our specialists</a></li>
-            <li class="nav-item"><a href="/appointment" class="nav-link px-2 text-muted">Book appointment</a></li>
+            <li class="nav-item"><a href="/appointment/create" class="nav-link px-2 text-muted">Book appointment</a></li>
         </ul>
     </footer>
 </div>

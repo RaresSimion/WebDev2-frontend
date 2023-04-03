@@ -17,7 +17,7 @@
                     <div v v-if="error" class="alert alert-danger mt-3" role="alert">
                         {{ this.error }}
                     </div>
-                    <button type="submit" class="btn btn-primary" name="editSection">Confirm changes</button>
+                    <button type="submit" class="btn btn-primary me-3" name="editSection">Confirm changes</button>
                     <button type="button" @click="this.$router.push('/management/sections')"
                         class="btn btn-warning">Cancel</button>
 
