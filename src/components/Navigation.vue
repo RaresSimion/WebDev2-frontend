@@ -55,7 +55,7 @@
 </nav>
 </template>
 
-<script>
+<script >
 import { useUserSessionStore } from '../stores/usersession';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 

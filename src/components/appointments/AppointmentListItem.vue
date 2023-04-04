@@ -15,7 +15,6 @@
 
 <script>
 import axios from '../../axios-auth.js';
-// import EditAppointment from './EditAppointment.vue';
 export default {
     name: 'AppointmentListItem',
     props: {

@@ -61,7 +61,7 @@
                             </div>
 
 
-                            <button type="submit" class="btn btn-primary" name="addDoctor"
+                            <button type="submit" class="btn btn-primary me-2" name="addDoctor"
                                 >Confirm</button>
                             <button type="button" class="btn btn-warning"
                                 @click="this.$router.push('/management/doctors')">Cancel</button>

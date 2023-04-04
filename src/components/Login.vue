@@ -40,7 +40,7 @@
   </div>
 </template>
 
-<script>
+<script >
 //import axios from "../axios-auth.js";
 import { useUserSessionStore } from "../stores/usersession";
 

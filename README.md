@@ -1,14 +1,7 @@
-# Vue JWT starter project
+# Vue frontend project
 
-This project is meant as a starting point for a lecture about adding JWT authentication and state management to a vue app
+This project is the frontend of a Doctor's appointment website, which uses a PHP REST API with JWT authentication and state management.
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ## Project Setup
 
